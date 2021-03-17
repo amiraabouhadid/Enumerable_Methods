@@ -18,43 +18,37 @@ module Enumerable
   end
 
   def my_select
-    return unless block_given?
-
     arr = []
-    my_each { |n| arr << n if yield n }
+    my_each { |n| arr << n if yield n } if block_given?
     arr
   end
 
   def my_all?
-    return unless block_given?
-
-    my_select { |n| yield n }.length == length
+    my_select { |n| yield n }.length == length if block_given?
   end
 
   def my_any?
-    return unless block_given?
-
-    my_select { |n| yield n }.length.positive?
+    my_select { |n| yield n }.length.positive? if block_given?
   end
 
   def my_none?
-    return unless block_given?
-
-    !my_any?
+    !my_any? if block_given?
   end
 
   def my_count
-    return unless block_given?
-
-    my_select { |n| yield n }.length
+    my_select { |n| yield n }.length if block_given?
   end
 
   def my_map
-    arr=[]
+    arr = []
     my_each { |n| arr << yield(n) } if block_given?
     arr
   end
 
   def my_inject
+  end
+
+  def multiply_els
+    my_inject( :* )
   end
 end
