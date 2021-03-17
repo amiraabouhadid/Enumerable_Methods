@@ -1,3 +1,4 @@
+# rubocop:disable Style/LineLength, Style/StringLiterals
 module Enumerable
   def my_each
     return unless block_given?
