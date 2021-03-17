@@ -1,4 +1,3 @@
-# rubocop:disable Style/LineLength, Style/StringLiterals
 module Enumerable
   def my_each
     return unless block_given?
@@ -50,6 +49,6 @@ module Enumerable
   end
 
   def multiply_els
-    my_inject( :* )
+    my_inject(1, :*)
   end
 end
