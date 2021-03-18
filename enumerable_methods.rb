@@ -1,37 +1,26 @@
 module Enumerable
   def my_each
-    return to_enum(:my_each) unless block_given?
+    return unless block_given?
 
-    k = 0
-    while k < to_a.length
-      yield to_a[k]
-      k += 1
+    for i in self
+      yield i
     end
-    self
   end
 
   def my_each_with_index
-    return to_enum(:my_each_with_index) unless block_given?
+    return unless block_given?
 
-    k = 0
-    while k < to_a.length
-      yield(to_a[k], k)
-      k += 1
+    index = 0
+    for i in self
+      yield i, index
+      index += 1
     end
-    self
   end
 
   def my_select
-    return to_enum(:my_select) unless block_given?
-
-    final = []
-    num = [Hash, Range].member?(self.class) ? to_a.flatten : self
-    k = 0
-    count do
-      final << num[k] if yield(num[k])
-      k += 1
-    end
-    final
+    arr = []
+    my_each { |n| arr.push(n) if yield n } if block_given?
+    arr
   end
 
   def my_all?
