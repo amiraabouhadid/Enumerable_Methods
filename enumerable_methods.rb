@@ -19,7 +19,7 @@ module Enumerable
 
   def my_select
     arr = []
-    my_each { |n| arr << n if yield n } if block_given?
+    my_each { |n| arr.push(n) if yield n } if block_given?
     arr
   end
 
@@ -41,8 +41,8 @@ module Enumerable
 
   def my_map(proc = nil)
     arr = []
-    my_each { |n| arr << yield(n) } if block_given?
-    my_each { |n| arr << proc.call(n) } if proc
+    my_each { |n| arr.push(yield(n)) } if block_given?
+    my_each { |n| arr.push(proc.call(n)) } if proc
     arr
   end
 
