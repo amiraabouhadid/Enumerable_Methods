@@ -49,13 +49,13 @@ module Enumerable
   def my_inject(*arguments)
     case arguments.length
     when 1
-      arguments.first.is_a?(Symbol) ? symb = arguments.first : total = arguments.first
+      arguments.first.is_a?(Symbol) ? operator = arguments.first : total = arguments.first
     when 2
       total = arguments.first
-      symb = arguments.last
+      operator = arguments.last
     end
     total ||= 0
-    my_each { |n| total = block_given? ? yield(total, n) : total.send(symb, n) }
+    my_each { |n| total = block_given? ? yield(total, n) : total.send(operator, n) }
     total
   end
 
