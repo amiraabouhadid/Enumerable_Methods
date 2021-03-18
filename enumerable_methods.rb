@@ -33,7 +33,7 @@ module Enumerable
     end
     final
   end
- 
+
   def my_all?
     my_select { |n| yield n }.length == length if block_given?
   end
@@ -73,5 +73,4 @@ module Enumerable
   def multiply_els
     my_inject(1) { |product, n| product * n }
   end
-
 end
