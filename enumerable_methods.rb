@@ -45,10 +45,20 @@ module Enumerable
     arr
   end
 
-  def my_inject
+  def my_inject(*arguments)
+    case arguments.length
+    when 1
+      arguments.first.is_a?(Symbol) ? symb = arguments.first : total = arguments.first
+    when 2
+      total = arguments.first
+      symb = arguments.last
+    end
+    total ||= 0
+    my_each { |n| total = block_given? ? yield(total, n) : total.send(symb, n) }
+    total
   end
 
   def multiply_els
-    my_inject(1, :*)
+    my_inject(1) { |product, n| product * n }
   end
 end

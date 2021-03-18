@@ -41,6 +41,11 @@ Clone repository from github to your local drive using git clone command:
 - Twitter: [@AbouhadidAmira](https://twitter.com/AbouhadidAmira)
 - LinkedIn: [amira-abouhadid](https://linkedin.com/amira-abouhadid)
 
+👤 FELIX VONDEE
+
+- GitHub: [@felix-vondee](https://github.com/felix-vondee)
+- Twitter: [@felix_vondee](https://twitter.com/felix_vondee)
+- LinkedIn: [Felix Vondee](https://linkedin.com/)
 
 ## 🤝 Contributing
 
