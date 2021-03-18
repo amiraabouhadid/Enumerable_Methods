@@ -1,28 +1,39 @@
 module Enumerable
   def my_each
-    return unless block_given?
+    return to_enum(:my_each) unless block_given?
 
-    for i in self
-      yield i
+    k = 0
+    while k < to_a.length
+      yield to_a[k]
+      k += 1
     end
+    self
   end
 
   def my_each_with_index
-    return unless block_given?
+    return to_enum(:my_each_with_index) unless block_given?
 
-    index = 0
-    for i in self
-      yield i, index
-      index += 1
+    k = 0
+    while k < to_a.length
+      yield(to_a[k], k)
+      k += 1
     end
+    self
   end
 
   def my_select
-    arr = []
-    my_each { |n| arr.push(n) if yield n } if block_given?
-    arr
-  end
+    return to_enum(:my_select) unless block_given?
 
+    final = []
+    num = [Hash, Range].member?(self.class) ? to_a.flatten : self
+    k = 0
+    count do
+      final << num[k] if yield(num[k])
+      k += 1
+    end
+    final
+  end
+ 
   def my_all?
     my_select { |n| yield n }.length == length if block_given?
   end
@@ -62,4 +73,5 @@ module Enumerable
   def multiply_els
     my_inject(1) { |product, n| product * n }
   end
+
 end
