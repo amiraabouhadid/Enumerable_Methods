@@ -39,9 +39,10 @@ module Enumerable
     my_select { |n| yield n }.length if block_given?
   end
 
-  def my_map
+  def my_map(proc = nil)
     arr = []
     my_each { |n| arr << yield(n) } if block_given?
+    my_each { |n| arr << proc.call(n) } if proc
     arr
   end
 
