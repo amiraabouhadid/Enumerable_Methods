@@ -28,28 +28,49 @@ module Enumerable
   def my_all?(*args)
     case args.length
     when 0
-      return true
+      block_given? ? my_select { |n| yield n }.length == length : true
     when 1
-      
+      args.first.is_a?(Regexp) ?
+      my_select { |n| n.match(args.first) }.length == length :
+      my_select { |n| n.is_a?(args.first) }.length == length
     end
-
-    my_select { |n| yield n }.length == length if block_given?
   end
 
-  def my_any?
-    my_select { |n| yield n }.length.positive? if block_given?
+  def my_any?(*args)
+    case args.length
+    when 0
+      block_given? ? my_select { |n| yield n }.length.positive? : true
+    when 1
+      args.first.is_a?(Regexp) ?
+      my_select { |n| n.match(args.first) }.length.positive? :
+      my_select { |n| n.is_a?(args.first) }.length.positive?
+    end
   end
 
-  def my_none?
-    !my_any? if block_given?
+  def my_none?(*args)
+    case args.length
+    when 0
+      block_given? ? !my_select { |n| yield n }.length.positive? : !my_select { |n| n == true }.length.positive?
+    when 1
+      args.first.is_a?(Regexp) ?
+      !my_select { |n| n.match(args.first) }.length.positive? :
+      !my_select { |n| n.is_a?(args.first) }.length.positive?
+    end
   end
 
-  def my_count
-    my_select { |n| yield n }.length if block_given?
+  def my_count(*args)
+    case args.length
+    when 0
+      block_given? ? my_select { |n| yield n }.length : length
+    when 1
+      block_given? ? my_select { |n| yield(args.first, n) && n == args.first }.length : my_select { |n| n == args.first }.length
+    end
   end
 
   def my_map(proc = nil)
     arr = []
+    return to_enum(:my_select) unless block_given?
+
     my_each { |n| arr.push(yield(n)) } if block_given?
     my_each { |n| arr.push(proc.call(n)) } if proc
     arr
