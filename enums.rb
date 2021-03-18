@@ -1,6 +1,6 @@
 module Enumerable
   def my_each
-    return unless block_given?
+    return to_enum(:my_each) unless block_given?
 
     for i in self
       yield i
@@ -8,7 +8,7 @@ module Enumerable
   end
 
   def my_each_with_index
-    return unless block_given?
+    return to_enum(:my_each_with_index) unless block_given?
 
     index = 0
     for i in self
@@ -19,11 +19,20 @@ module Enumerable
 
   def my_select
     arr = []
-    my_each { |n| arr.push(n) if yield n } if block_given?
+    return to_enum(:my_select) unless block_given?
+
+    my_each { |n| arr.push(n) if yield n }
     arr
   end
 
-  def my_all?
+  def my_all?(*args)
+    case args.length
+    when 0
+      return true
+    when 1
+      
+    end
+
     my_select { |n| yield n }.length == length if block_given?
   end
 
