@@ -47,3 +47,7 @@ module Enumerables
     arg
   end
 end
+
+def multiply_els(arr)
+  arr.my_inject { |x, y| x * y }
+end
