@@ -1,4 +1,4 @@
-# rubocop:disable Style/Linesize, Style/NestedTernaryOperator, Style/MultilineTernaryOperator, Style/ParallelAssignment, Style/IfUnlessModifier, Style/ExplicitBlockArgument, Style/For
+# rubocop:disable Style/NestedTernaryOperator, Style/MultilineTernaryOperator, Style/ParallelAssignment, Style/IfUnlessModifier, Style/ExplicitBlockArgument, Style/For
 module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
@@ -64,14 +64,14 @@ module Enumerable
     when 0
       block_given? ? my_select { |n| yield n }.size : size
     when 1
-      block_given? ? my_select { |n| yield(args.first, n) && n == args.first }.size : my_select { |n| n == args.first }.size
+      block_given? ? my_select { |n| yield(args.first, n) && n == args.first }.size : my_select do |n|
+                                                                                        n == args.first
+                                                                                      end.size
     end
   end
 
   def my_map(proc = nil)
     arr = []
-    return to_enum(:my_map) unless block_given?
-
     my_each { |n| arr.push(yield(n)) } if block_given?
     my_each { |n| arr.push(proc.call(n)) } if proc
     arr
@@ -91,4 +91,4 @@ end
 def multiply_els(arr)
   arr.my_inject(1) { |product, n| product * n }
 end
-# rubocop:enable Style/Linesize, Style/NestedTernaryOperator, Style/MultilineTernaryOperator, Style/ParallelAssignment, Style/IfUnlessModifier, Style/ExplicitBlockArgument, Style/For
+# rubocop:enable Style/NestedTernaryOperator, Style/MultilineTernaryOperator, Style/ParallelAssignment, Style/IfUnlessModifier, Style/ExplicitBlockArgument, Style/For
