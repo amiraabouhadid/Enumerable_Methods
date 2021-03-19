@@ -1,5 +1,5 @@
 Layout/LineLength:
-  Max: 120
+  Max: 340
 Metrics/MethodLength:
   Max: 100
 Metrics/AbcSize:
@@ -43,4 +43,16 @@ Metrics/ModuleLength:
 Metrics/CyclomaticComplexity:
   Enabled: false
 Metrics/PerceivedComplexity:
+  Enabled: false
+Style/MultilineTernaryOperator:
+  Enabled: false
+Style/NestedTernaryOperator:
+  Enabled: false
+Style/ParallelAssignment:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
+Style/ExplicitBlockArgument:
+  Enabled: false
+Style/For:
   Enabled: false
