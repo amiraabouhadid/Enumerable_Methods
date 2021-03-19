@@ -1,5 +1,5 @@
 Layout/LineLength:
-  Max: 120
+  Max: 340
 Metrics/MethodLength:
   Max: 100
 Metrics/AbcSize:
@@ -26,7 +26,7 @@ Layout/HashAlignment:
 Layout/ExtraSpacing:
   AllowForAlignment: false
 Layout/MultilineMethodCallIndentation:
-  Enabled: true
+  Enabled: false
   EnforcedStyle: indented
 Lint/RaiseException:
   Enabled: false
@@ -44,3 +44,5 @@ Metrics/CyclomaticComplexity:
   Enabled: false
 Metrics/PerceivedComplexity:
   Enabled: false
+Style/StringLiterals:
+  Enaabled: false
