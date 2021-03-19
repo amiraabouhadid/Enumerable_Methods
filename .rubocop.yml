@@ -58,3 +58,5 @@ Style/ExplicitBlockArgument:
   Enabled: false
 Style/For:
   Enabled: false
+Style/TernaryParentheses:
+  Enabled: false
