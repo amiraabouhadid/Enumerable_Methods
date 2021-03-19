@@ -1,3 +1,4 @@
+# rubocop:disable Style/LineLength, Style/StringLiterals
 module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
@@ -90,3 +91,4 @@ end
 def multiply_els(arr)
   arr.my_inject(1) { |product, n| product * n }
 end
+# rubocop:enable Style/LineLength, Style/StringLiterals
