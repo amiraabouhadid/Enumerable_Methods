@@ -28,7 +28,7 @@ module Enumerable
   def my_all?(*args)
     case args.length
     when 0
-      block_given? ? my_select { |n| yield n }.length == length : true
+      block_given? ? my_select { |n| yield n }.length == size : false
     when 1
       args.first.is_a?(Regexp) ?
       my_select { |n| n.match(args.first) }.length == length :
@@ -39,7 +39,7 @@ module Enumerable
   def my_any?(*args)
     case args.length
     when 0
-      block_given? ? my_select { |n| yield n }.length.positive? : true
+      block_given? ? my_select { |n| yield n }.length.positive? : false
     when 1
       args.first.is_a?(Regexp) ?
       my_select { |n| n.match(args.first) }.length.positive? :
