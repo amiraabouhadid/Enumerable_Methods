@@ -69,7 +69,7 @@ module Enumerable
 
   def my_map(proc = nil)
     arr = []
-    return to_enum(:my_select) unless block_given?
+    return to_enum(:my_map) unless block_given?
 
     my_each { |n| arr.push(yield(n)) } if block_given?
     my_each { |n| arr.push(proc.call(n)) } if proc
