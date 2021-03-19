@@ -1,4 +1,4 @@
-# rubocop:disable Style/LineLength, Style/NestedTernaryOperator, Style/MultilineTernaryOperator, Style/ParallelAssignment, Style/IfUnlessModifier, Style/ExplicitBlockArgument, Style/For, Style/TernaryParentheses
+# rubocop:disable Style/Linesize, Style/NestedTernaryOperator, Style/MultilineTernaryOperator, Style/ParallelAssignment, Style/IfUnlessModifier, Style/ExplicitBlockArgument, Style/For
 module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
@@ -27,44 +27,44 @@ module Enumerable
   end
 
   def my_all?(*args)
-    case args.length
+    case args.size
     when 0
-      block_given? ? my_select { |n| yield n }.length == size : false
+      block_given? ? my_select { |n| yield n }.size == size : false
     when 1
       args.first.is_a?(Regexp) ?
-      my_select { |n| n.match(args.first) }.length == length :
-      my_select { |n| n.is_a?(args.first) }.length == length
+      my_select { |n| n.match(args.first) }.size == size :
+      my_select { |n| n.is_a?(args.first) }.size == size
     end
   end
 
   def my_any?(*args)
-    case args.length
+    case args.size
     when 0
-      block_given? ? my_select { |n| yield n }.length.positive? : false
+      block_given? ? my_select { |n| yield n }.size.positive? : false
     when 1
       args.first.is_a?(Regexp) ?
-      my_select { |n| n.match(args.first) }.length.positive? :
-      my_select { |n| n.is_a?(args.first) }.length.positive?
+      my_select { |n| n.match(args.first) }.size.positive? :
+      my_select { |n| n.is_a?(args.first) }.size.positive?
     end
   end
 
   def my_none?(*args)
-    case args.length
+    case args.size
     when 0
-      block_given? ? !my_select { |n| yield n }.length.positive? : !my_select { |n| n == true }.length.positive?
+      block_given? ? !my_select { |n| yield n }.size.positive? : !my_select { |n| n == true }.size.positive?
     when 1
       args.first.is_a?(Regexp) ?
-      !my_select { |n| n.match(args.first) }.length.positive? :
-      !my_select { |n| n.is_a?(args.first) }.length.positive?
+      !my_select { |n| n.match(args.first) }.size.positive? :
+      !my_select { |n| n.is_a?(args.first) }.size.positive?
     end
   end
 
   def my_count(*args)
-    case args.length
+    case args.size
     when 0
-      block_given? ? my_select { |n| yield n }.length : length
+      block_given? ? my_select { |n| yield n }.size : size
     when 1
-      block_given? ? my_select { |n| yield(args.first, n) && n == args.first }.length : my_select { |n| n == args.first }.length
+      block_given? ? my_select { |n| yield(args.first, n) && n == args.first }.size : my_select { |n| n == args.first }.size
     end
   end
 
@@ -91,4 +91,4 @@ end
 def multiply_els(arr)
   arr.my_inject(1) { |product, n| product * n }
 end
-# rubocop:enable Style/LineLength, Style/NestedTernaryOperator, Style/MultilineTernaryOperator, Style/ParallelAssignment, Style/IfUnlessModifier, Style/ExplicitBlockArgument, Style/For, Style/TernaryParentheses
+# rubocop:enable Style/Linesize, Style/NestedTernaryOperator, Style/MultilineTernaryOperator, Style/ParallelAssignment, Style/IfUnlessModifier, Style/ExplicitBlockArgument, Style/For
