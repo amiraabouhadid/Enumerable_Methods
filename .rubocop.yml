@@ -45,4 +45,4 @@ Metrics/CyclomaticComplexity:
 Metrics/PerceivedComplexity:
   Enabled: false
 Style/StringLiterals:
-  Enaabled: false
+  Enabled: false
