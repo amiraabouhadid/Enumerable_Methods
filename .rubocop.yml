@@ -1,25 +1,14 @@
-AllCops:
-  NewCops: enable
-  Exclude:
-    - "Guardfile"
-    - "Rakefile"
-    - "node_modules/**/*"
-
-  DisplayCopNames: true
-
 Layout/LineLength:
-  Max: 120
+  Max: 340
 Metrics/MethodLength:
-  Max: 20
+  Max: 100
 Metrics/AbcSize:
-  Max: 50
+  Max: 100
 Metrics/ClassLength:
-  Max: 150
+  Max: 350
 Metrics/BlockLength:
-  IgnoredMethods: ['describe']
-  Max: 30
-
-
+  ExcludedMethods: ['describe']
+  Max: 100
 Style/Documentation:
   Enabled: false
 Style/ClassAndModuleChildren:
@@ -32,13 +21,12 @@ Style/DefWithParentheses:
   Enabled: false
 Style/FrozenStringLiteralComment:
   EnforcedStyle: never
-
 Layout/HashAlignment:
   EnforcedColonStyle: key
 Layout/ExtraSpacing:
   AllowForAlignment: false
 Layout/MultilineMethodCallIndentation:
-  Enabled: true
+  Enabled: false
   EnforcedStyle: indented
 Lint/RaiseException:
   Enabled: false
@@ -49,4 +37,26 @@ Style/HashEachMethods:
 Style/HashTransformKeys:
   Enabled: false
 Style/HashTransformValues:
+  Enabled: false
+Metrics/ModuleLength:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+Style/StringLiterals:
+  Enabled: false
+Style/NestedTernaryOperator:
+  Enabled: false
+Style/MultilineTernaryOperator:
+  Enabled: false
+Style/ParallelAssignment:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
+Style/ExplicitBlockArgument:
+  Enabled: false
+Style/For:
+  Enabled: false
+Style/TernaryParentheses:
   Enabled: false

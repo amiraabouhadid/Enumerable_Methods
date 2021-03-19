@@ -91,4 +91,3 @@ end
 def multiply_els(arr)
   arr.my_inject(1) { |product, n| product * n }
 end
-# rubocop:enable Style/LineLength, Style/StringLiterals
