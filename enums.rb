@@ -76,20 +76,17 @@ module Enumerable
     arr
   end
 
-  def my_inject(*arguments)
-    case arguments.length
-    when 1
-      arguments.first.is_a?(Symbol) ? operator = arguments.first : total = arguments.first
-    when 2
-      total = arguments.first
-      operator = arguments.last
+  def my_inject(total = nil, symb = nil)
+    if (total.is_a?(Symbol) || total.is_a?(String)) && symb.nil?
+      symb, total = total, nil
     end
-    total ||= 0
-    my_each { |n| total = block_given? ? yield(total, n) : total.send(operator, n) }
+    (!block_given? && !symb.nil?) ?
+    my_each { |n| total = total.nil? ? n : total.send(symb, n) } :
+    my_each { |n| total = total.nil? ? n : yield(total, n) }
     total
   end
+end
 
-  def multiply_els
-    my_inject(1) { |product, n| product * n }
-  end
+def multiply_els(arr)
+  arr.my_inject(1) { |product, n| product * n }
 end
