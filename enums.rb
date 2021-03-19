@@ -80,7 +80,7 @@ module Enumerable
     if (total.is_a?(Symbol) || total.is_a?(String)) && symb.nil?
       symb, total = total, nil
     end
-    (!block_given? && !symb.nil?) ?
+    !block_given? && !symb.nil? ?
     my_each { |n| total = total.nil? ? n : total.send(symb, n) } :
     my_each { |n| total = total.nil? ? n : yield(total, n) }
     total
