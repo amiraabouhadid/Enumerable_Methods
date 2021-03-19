@@ -1,4 +1,4 @@
-# rubocop:disable Style/NestedTernaryOperator, Style/MultilineTernaryOperator, Style/ParallelAssignment, Style/IfUnlessModifier, Style/ExplicitBlockArgument, Style/For, Metrics/CyclomaticComplexity
+# rubocop:disable Style/Linesize, Style/NestedTernaryOperator, Style/MultilineTernaryOperator, Style/ParallelAssignment, Style/IfUnlessModifier, Style/ExplicitBlockArgument, Style/For, Metrics/CyclomaticComplexity
 module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
@@ -29,7 +29,7 @@ module Enumerable
   def my_all?(*args)
     case args.size
     when 0
-      block_given? ? my_select { |n| yield n }.size == size : false
+      block_given? ? my_select { |n| yield n }.size == size : true
     when 1
       args.first.is_a?(Regexp) ?
       my_select { |n| n.match(args.first) }.size == size :
@@ -40,7 +40,7 @@ module Enumerable
   def my_any?(*args)
     case args.size
     when 0
-      block_given? ? my_select { |n| yield n }.size.positive? : false
+      block_given? ? my_select { |n| yield n }.size.positive? : true
     when 1
       args.first.is_a?(Regexp) ?
       my_select { |n| n.match(args.first) }.size.positive? :
@@ -64,14 +64,13 @@ module Enumerable
     when 0
       block_given? ? my_select { |n| yield n }.size : size
     when 1
-      block_given? ? my_select { |n| yield(args.first, n) && n == args.first }.size : my_select do |n|
-                                                                                        n == args.first
-                                                                                      end.size
+      block_given? ? my_select { |n| yield(args.first, n) && n == args.first }.size : my_select { |n| n == args.first }.size
     end
   end
 
   def my_map(proc = nil)
     arr = []
+    return to_enum(:my_map) unless block_given?
     my_each { |n| arr.push(yield(n)) } if block_given?
     my_each { |n| arr.push(proc.call(n)) } if proc
     arr
@@ -91,4 +90,4 @@ end
 def multiply_els(arr)
   arr.my_inject(1) { |product, n| product * n }
 end
-# rubocop:enable Style/NestedTernaryOperator, Style/MultilineTernaryOperator, Style/ParallelAssignment, Style/IfUnlessModifier, Style/ExplicitBlockArgument, Style/For, Metrics/CyclomaticComplexity
+# rubocop:enable Style/Linesize, Style/NestedTernaryOperator, Style/MultilineTernaryOperator, Style/ParallelAssignment, Style/IfUnlessModifier, Style/ExplicitBlockArgument, Style/For, Metrics/CyclomaticComplexity
