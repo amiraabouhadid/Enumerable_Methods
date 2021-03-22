@@ -46,6 +46,22 @@ module Enumerables
     end
     arg
   end
+
+  def my_any?(param = nil)
+    if block_given?
+      to_a.my_each { |item| return true if yield(item) }
+      return false
+    elsif param.nil?
+      to_a.my_each { |item| return true if item }
+    elsif !param.nil? && (param.is_a? Class)
+      to_a.my_each { |item| return true if [item.class, item.class.superclass].include?(param) }
+    elsif !param.nil? && param.class == Regexp
+      to_a.my_each { |item| return true if param.match(item) }
+    else
+      to_a.my_each { |item| return true if item == param }
+    end
+    false
+  end
 end
 
 def multiply_els(arr)
