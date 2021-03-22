@@ -62,6 +62,22 @@ module Enumerables
     end
     false
   end
+
+  def my_all?(param = nil)
+    if block_given?
+      to_a.my_each { |item| return false if yield(item) == false }
+      return true
+    elsif param.nil?
+      to_a.my_each { |item| return false if item.nil? || item == false }
+    elsif !param.nil? && (param.is_a? Class)
+      to_a.my_each { |item| return false unless [item.class, item.class.superclass].include?(param) }
+    elsif !param.nil? && param.class == Regexp
+      to_a.my_each { |item| return false unless param.match(item) }
+    else
+      to_a.my_each { |item| return false if item != param }
+    end
+    true
+  end
 end
 
 def multiply_els(arr)
