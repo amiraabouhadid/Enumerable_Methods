@@ -37,7 +37,7 @@ module Enumerable
       when Class
         return my_select { |n| n.is_a?(para) }.size == size
       else
-        return my_select{ |n| n == para }.size == size
+        return my_select { |n| n == para }.size == size
       end
     end
     return my_select(&block).size == size if block_given?
