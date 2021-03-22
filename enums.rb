@@ -29,6 +29,7 @@ module Enumerable
     if !para && !block_given?
       return my_select { |n| !n.nil && n != false }.size == size
     end
+
     if para
       case para
       when Regexp
@@ -36,18 +37,18 @@ module Enumerable
       when Class
         return my_select { |n| n.is_a?(para) }.size == size
       else
-        return self.my_each { |n| n != para ? false : true}
+        return my_each { |n| n == para }
       end
     end
-    if block_given?
-      return my_select(&block).size == size
-    end
+
+    return my_select(&block).size == size if block_given?
   end
 
   def my_any?(para = nil, &block)
     if !para && !block_given?
-      return my_select{ |n| n == nil || n == false }.size.positive? ? false : true
+      return my_select { |n| [nil, false].include?(n) }.size.positive? ? false : true
     end
+
     if para
       case para
       when Regexp
@@ -55,18 +56,18 @@ module Enumerable
       when Class
         return my_select { |n| n.is_a?(para) }.size.positive?
       else
-        return self.my_each { |n| n = para ? true : false}
+        return my_each { |n| n == para }
       end
     end
-    if block_given?
-      return my_select(&block).size.positive?
-    end
+
+    return my_select(&block).size.positive? if block_given?
   end
 
   def my_none?(para = nil, &block)
     if !para && !block_given?
-      return my_select{ |n| n == true }.size.positive? ? false : true
+      return my_select { |n| n == true }.size.positive? ? false : true
     end
+
     if para
       case para
       when Regexp
@@ -74,12 +75,11 @@ module Enumerable
       when Class
         return !my_select { |n| n.is_a?(para) }.size.positive?
       else
-        return self.my_each { |n| n = para ? false : true}
+        return my_each { |n| n != para }
       end
     end
-    if block_given?
-      return !my_select(&block).size.positive?
-    end
+
+    return !my_select(&block).size.positive? if block_given?
   end
 
   def my_count(*args)
