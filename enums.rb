@@ -37,7 +37,7 @@ module Enumerable
       when Class
         return my_select { |n| n.is_a?(para) }.size == size
       else
-        return my_each { |n| n != para ? false : true }
+        return my_each { |n| n == para }
       end
     end
     return my_select(&block).size == size if block_given?
@@ -65,7 +65,7 @@ module Enumerable
     if !para && !block_given?
       return my_select { |n| n == true }.size.positive? ? false : true
     end
-    
+
     if para
       case para
       when Regexp
@@ -73,7 +73,7 @@ module Enumerable
       when Class
         return !my_select { |n| n.is_a?(para) }.size.positive?
       else
-        return my_each { |n| n == para ? false : true }
+        return my_each { |n| n != para }
       end
     end
     return !my_select(&block).size.positive? if block_given?
