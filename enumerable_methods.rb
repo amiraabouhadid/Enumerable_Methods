@@ -78,6 +78,14 @@ module Enumerables
     end
     true
   end
+
+  def my_none?(param = nil)
+    if block_given?
+      !my_any?(&Proc.new)
+    else
+      !my_any?(param)
+    end
+  end
 end
 
 def multiply_els(arr)
