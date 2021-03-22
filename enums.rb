@@ -36,7 +36,7 @@ module Enumerable
       when Class
         return my_select { |n| n.is_a?(para) }.size == size
       else
-        return self.to_a.my_each { |n| el != para ? false : true}
+        return self.my_each { |n| el != para ? false : true}
       end
     end
     if block_given?
@@ -55,14 +55,12 @@ module Enumerable
       when Class
         return my_select { |n| n.is_a?(para) }.size.positive?
       else
-        return self.to_a.my_each { |n| el = para ? true : false}
+        return self.my_each { |n| el = para ? true : false}
       end
     end
     if block_given?
       return my_select(&block).size.positive?
     end
-
-
   end
 
   def my_none?(para = nil, &block)
@@ -76,7 +74,7 @@ module Enumerable
       when Class
         return !my_select { |n| n.is_a?(para) }.size.positive?
       else
-        return self.to_a.my_each { |n| el = para ? false : true}
+        return self.my_each { |n| el = para ? false : true}
       end
     end
     if block_given?
@@ -98,7 +96,7 @@ module Enumerable
 
     arr = []
     my_each { |n| arr.push(yield(n)) } if block_given? && !proc
-    my_each { |n| arr.push(proc.call(n)) } if proc 
+    my_each { |n| arr.push(proc.call(n)) } if proc
     arr
   end
 
