@@ -37,7 +37,7 @@ module Enumerable
       when Class
         return my_select { |n| n.is_a?(para) }.size == size
       else
-        return my_each { |n| n == para }
+        return my_select{ |n| n == para }.size == size
       end
     end
     return my_select(&block).size == size if block_given?
@@ -45,7 +45,7 @@ module Enumerable
 
   def my_any?(para = nil, &block)
     if !para && !block_given?
-      return my_select { |n| n == true }.size.positive?
+      return my_select { |n| n != false && !n.nil? }.size.positive?
     end
 
     if para
@@ -55,7 +55,7 @@ module Enumerable
       when Class
         return my_select { |n| n.is_a?(para) }.size.positive?
       else
-        return my_each { |n| n == para }
+        return my_select { |n| n == para }.size.positive?
       end
     end
     return my_select(&block).size.positive? if block_given?
@@ -73,7 +73,7 @@ module Enumerable
       when Class
         return !my_select { |n| n.is_a?(para) }.size.positive?
       else
-        return my_each { |n| n != para }
+        return !my_select { |n| n == para }.size.positive?
       end
     end
     return !my_select(&block).size.positive? if block_given?
