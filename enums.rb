@@ -45,7 +45,7 @@ module Enumerable
 
   def my_any?(para = nil, &block)
     if !para && !block_given?
-      return my_select { |n| n.nil? || n == false }.size.positive? ? false : true
+      return my_select { |n| n == true }.size.positive?
     end
 
     if para
