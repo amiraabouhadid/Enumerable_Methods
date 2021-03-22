@@ -27,7 +27,7 @@ module Enumerable
 
   def my_all?(para = nil, &block)
     if !para && !block_given?
-      return my_select { |n| n != nil && n != false }.size == size
+      return my_select { |n| !n.nil && n != false }.size == size
     end
     if para
       case para
@@ -36,7 +36,7 @@ module Enumerable
       when Class
         return my_select { |n| n.is_a?(para) }.size == size
       else
-        return self.my_each { |n| el != para ? false : true}
+        return self.my_each { |n| n != para ? false : true}
       end
     end
     if block_given?
@@ -55,7 +55,7 @@ module Enumerable
       when Class
         return my_select { |n| n.is_a?(para) }.size.positive?
       else
-        return self.my_each { |n| el = para ? true : false}
+        return self.my_each { |n| n = para ? true : false}
       end
     end
     if block_given?
@@ -74,7 +74,7 @@ module Enumerable
       when Class
         return !my_select { |n| n.is_a?(para) }.size.positive?
       else
-        return self.my_each { |n| el = para ? false : true}
+        return self.my_each { |n| n = para ? false : true}
       end
     end
     if block_given?

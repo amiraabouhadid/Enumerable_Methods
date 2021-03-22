@@ -1,7 +1,7 @@
-require_relative 'enums.rb'
+require_relative 'enums'
 my_array = [1, 2, 3, 4, 5]
 my_array_2 = [nil, 1, 3, false]
-my_array_3= [ 11, 14, 15]
+my_array_3 = [11, 14, 15]
 my_hash = { x: 1, y: 2, z: 3 }
 my_text = %w[ant bear cat]
 arg = proc { |value| value * 2 }
