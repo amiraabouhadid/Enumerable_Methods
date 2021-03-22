@@ -25,36 +25,62 @@ module Enumerable
     arr
   end
 
-  def my_all?(*args)
-    case args.size
-    when 0
-      block_given? ? my_select { |n| yield n }.size == size : true
-    when 1
-      args.first.is_a?(Regexp) ?
-      my_select { |n| n.match(args.first) }.size == size :
-      my_select { |n| n.is_a?(args.first) }.size == size
+  def my_all?(para = nil, &block)
+    if !para && !block_given?
+      return my_select { |n| n != nil && n != false }.size == size
+    end
+    if para
+      case para
+      when Regexp
+        return my_select { |n| n.match(para) }.size == size
+      when Class
+        return my_select { |n| n.is_a?(para) }.size == size
+      else
+        return self.to_a.my_each { |n| el != para ? false : true}
+      end
+    end
+    if block_given?
+      return my_select(&block).size == size
     end
   end
 
-  def my_any?(*args)
-    case args.size
-    when 0
-      block_given? ? my_select { |n| yield n }.size.positive? : true
-    when 1
-      args.first.is_a?(Regexp) ?
-      my_select { |n| n.match(args.first) }.size.positive? :
-      my_select { |n| n.is_a?(args.first) }.size.positive?
+  def my_any?(para = nil, &block)
+    if !para && !block_given?
+      return my_select{ |n| n == nil || n == false }.size.positive? ? false : true
     end
+    if para
+      case para
+      when Regexp
+        return my_select { |n| n.match(para) }.size.positive?
+      when Class
+        return my_select { |n| n.is_a?(para) }.size.positive?
+      else
+        return self.to_a.my_each { |n| el = para ? true : false}
+      end
+    end
+    if block_given?
+      return my_select(&block).size.positive?
+    end
+
+
   end
 
-  def my_none?(*args)
-    case args.size
-    when 0
-      block_given? ? !my_select { |n| yield n }.size.positive? : !my_select { |n| n == true }.size.positive?
-    when 1
-      args.first.is_a?(Regexp) ?
-      !my_select { |n| n.match(args.first) }.size.positive? :
-      !my_select { |n| n.is_a?(args.first) }.size.positive?
+  def my_none?(para = nil, &block)
+    if !para && !block_given?
+      return my_select{ |n| n == true }.size.positive? ? false : true
+    end
+    if para
+      case para
+      when Regexp
+        return !my_select { |n| n.match(para) }.size.positive?
+      when Class
+        return !my_select { |n| n.is_a?(para) }.size.positive?
+      else
+        return self.to_a.my_each { |n| el = para ? false : true}
+      end
+    end
+    if block_given?
+      return !my_select(&block).size.positive?
     end
   end
 
@@ -71,8 +97,8 @@ module Enumerable
     return to_enum(:my_map) unless block_given?
 
     arr = []
-    my_each { |n| arr.push(yield(n)) } if block_given?
-    my_each { |n| arr.push(proc.call(n)) } if proc
+    my_each { |n| arr.push(yield(n)) } if block_given? && !proc
+    my_each { |n| arr.push(proc.call(n)) } if proc 
     arr
   end
 
