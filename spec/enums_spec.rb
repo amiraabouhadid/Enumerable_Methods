@@ -43,20 +43,40 @@ describe Enumerable do
       expect(%w[name man van].my_all?(/n/)).to be(true)
     end
 
+    it 'Returns false if not all items include particular string, when only RegExp param given' do
+      expect(%w[name man hat].my_all?(/n/)).to be(false)
+    end
+
     it 'Returns true if All Items are of given Class, when only Class param given' do
       expect(%w[name man van].my_all?(String)).to be(true)
+    end
+
+    it 'Returns false if not all items are of given Class, when only Class param given' do
+      expect(['name', 'man', :van].my_all?(String)).to be(false)
     end
 
     it 'Returns true if all items are equal to item given as param' do
       expect(%w[man man man].my_all?('man')).to be(true)
     end
 
+    it 'Returns false if not all items are equal to item given as param' do
+      expect(%w[man man woman].my_all?('man')).to be(false)
+    end
+
     it 'Returns true if none of items are nil/false, when no param nor block given' do
       expect(%w[name man van].my_all?).to be(true)
     end
 
+    it 'Returns false if any of items are nil/false, when no param nor block given' do
+      expect(['name', 'man', nil].my_all?).to be(false)
+    end
+
     it 'Returns true if all items yields to true, if only block given' do
       expect((1..3).my_all? { |el| el > 0 }).to be(true)
+    end
+
+    it 'Returns false if not all items yields to true, if only block given' do
+      expect((1..3).my_all? { |el| el > 2 }).to be(false)
     end
   end
 
@@ -65,16 +85,32 @@ describe Enumerable do
       expect(%w[name man van].my_any?(/e/)).to be(true)
     end
 
+    it 'Returns false if not one item have particular string, when only RegExp param given' do
+      expect(%w[mom man van].my_any?(/e/)).to be(false)
+    end
+
     it 'Returns true at least one item is of given Class, when only Class param given' do
       expect([nil, :fake, 'str'].my_any?(String)).to be(true)
+    end
+
+    it 'Returns false if not one item is of given Class, when only Class param given' do
+      expect([nil, :fake, 1].my_any?(String)).to be(false)
     end
 
     it 'Returns true if at least one item yields true, if only block given' do
       expect((1..3).my_any? { |el| el > 2 }).to be(true)
     end
 
+    it 'Returns false if not one item yields true, if only block given' do
+      expect(([1,2]).my_any? { |el| el > 2 }).to be(false)
+    end
+
     it 'Returns true if at least one of items is not nil/false, when no param nor block given' do
       expect(['name', false, nil].my_any?).to be(true)
+    end
+
+    it 'Returns false if none of items is not nil/false, when no param nor block given' do
+      expect([false, nil].my_any?).to be(false)
     end
   end
 
@@ -87,16 +123,32 @@ describe Enumerable do
       expect(%w[name man van].my_none?(/z/)).to be(true)
     end
 
+    it 'Returns false if one of items have particular string, when only RegExp param given' do
+      expect(%w[name zebra van].my_none?(/z/)).to be(false)
+    end
+
     it 'Returns true none of items is of given Class, when only Class param given' do
       expect([nil, :fake, 'str'].my_none?(Numeric)).to be(true)
+    end
+
+    it 'Returns false if one of items is of given Class, when only Class param given' do
+      expect([1, :fake, 'str'].my_none?(Numeric)).to be(false)
     end
 
     it 'Returns true if none of items equal to item given as param' do
       expect(%w[name yeah nile].my_none?('brick')).to be(true)
     end
 
+    it 'Returns false if one of items equal to item given as param' do
+      expect(%w[name brick nile].my_none?('brick')).to be(false)
+    end
+
     it 'Returns true if none of items yields true, if only block given' do
       expect((1..3).my_none? { |el| el > 3 }).to be(true)
+    end
+
+    it 'Returns false if one of items yields true, if only block given' do
+      expect(([3,4]).my_none? { |el| el > 3 }).to be(false)
     end
   end
 
