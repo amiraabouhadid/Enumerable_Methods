@@ -1,3 +1,7 @@
+# rubocop: disable Metrics/CyclomaticComplexity
+# rubocop: disable Style/MultilineTernaryOperator, Style/NestedTernaryOperator
+# rubocop: disable Style/ParallelAssignment, Style/IfUnlessModifier
+# rubocop: disable Style/ExplicitBlockArgument, Style/For, Lint/ToEnumArguments
 module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
@@ -63,7 +67,7 @@ module Enumerable
 
   def my_none?(para = nil, &block)
     if !para && !block_given?
-      return my_select { |n| n == true }.size.positive? ? false : true
+      return !my_select { |n| n == true }.size.positive?
     end
 
     if para
@@ -84,7 +88,9 @@ module Enumerable
     when 0
       block_given? ? my_select { |n| yield n }.size : size
     when 1
-      block_given? ? my_select { |n| yield(args.first, n) && n == args.first }.size : my_select { |n| n == args.first }.size
+      block_given? ? my_select { |n| yield(args.first, n) && n == args.first }.size : my_select do |n|
+                                                                                        n == args.first
+                                                                                      end.size
     end
   end
 
@@ -111,3 +117,7 @@ end
 def multiply_els(arr)
   arr.my_inject(1) { |product, n| product * n }
 end
+# rubocop: enable Metrics/CyclomaticComplexity
+# rubocop: enable Style/MultilineTernaryOperator, Style/NestedTernaryOperator
+# rubocop: enable Style/ParallelAssignment, Style/IfUnlessModifier
+# rubocop: enable Style/ExplicitBlockArgument, Style/For,  Lint/ToEnumArguments

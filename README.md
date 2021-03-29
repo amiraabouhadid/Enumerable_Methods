@@ -55,6 +55,12 @@ Clone repository from github to your local drive by following these steps:
 - Twitter: [@felix_vondee](https://twitter.com/felix_vondee)
 - LinkedIn: [Felix Vondee](https://linkedin.com/)
 
+👤 ZIL NORVILIS
+
+- GitHub: [@zilton7](https://github.com/zilton7)
+- Twitter: [@devnor7](https://twitter.com/devnor7)
+- LinkedIn: [zil-norvilis](https://www.linkedin.com/in/zil-norvilis)
+
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
