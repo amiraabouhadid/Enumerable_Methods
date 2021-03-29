@@ -102,7 +102,7 @@ describe Enumerable do
     end
 
     it 'Returns false if not one item yields true, if only block given' do
-      expect(([1,2]).my_any? { |el| el > 2 }).to be(false)
+      expect([1, 2].my_any? { |el| el > 2 }).to be(false)
     end
 
     it 'Returns true if at least one of items is not nil/false, when no param nor block given' do
@@ -148,7 +148,7 @@ describe Enumerable do
     end
 
     it 'Returns false if one of items yields true, if only block given' do
-      expect(([3,4]).my_none? { |el| el > 3 }).to be(false)
+      expect([3, 4].my_none? { |el| el > 3 }).to be(false)
     end
   end
 
@@ -227,6 +227,5 @@ describe Enumerable do
     it 'Returns result from multiply_els method' do
       expect(multiply_els(1..3)).to eq(6)
     end
-
   end
 end
