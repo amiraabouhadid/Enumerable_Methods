@@ -171,5 +171,10 @@ describe Enumerable do
     it 'Returns the result when only block given' do
       expect((1..3).my_inject { |acc, val| acc + val }).to eq(6)
     end
+
+    it 'Returns result from multiply_els method' do
+      expect(multiply_els(1..3)).to eq(6)
+    end
+
   end
 end
