@@ -8,7 +8,7 @@ describe Enumerable do
 
     it 'Returns itself' do
       expect((1..3).my_each { |el| el }).to eq((1..3))
-      expect({ key1: 10, key2: 20 }.each { |el| el }).to eq({ key1: 10, key2: 20 })
+      expect({ key1: 10, key2: 20 }.my_each { |el| el }).to eq({ key1: 10, key2: 20 })
     end
   end
 
@@ -78,7 +78,7 @@ describe Enumerable do
     end
   end
 
-  describe '#my_none' do
+  describe '#my_none?' do
     it 'Returns true if self is empty' do
       expect([].my_none?).to be(true)
     end
