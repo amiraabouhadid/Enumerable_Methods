@@ -2,7 +2,7 @@
 
 # RUBY PROJECT 2: ENUMERABLE METHODS
 
-We were asked to implement our own version of Ruby's enumerable methods.
+Ruby's enumerable methods built from scratch.
 ![Screenshot from 2021-03-19 17-05-37](https://user-images.githubusercontent.com/56790126/111801333-86729580-88d5-11eb-9209-67f852e9a175.png)
 
 ## Built With
